@@ -11,8 +11,10 @@ y = melbourne_data.Price
 melbourne_features = ["Rooms", "Bathroom", "Landsize", "Lattitude", "Longtitude"]
 X = melbourne_data[melbourne_features]
 
-melbourne_model = DecisionTreeRegressor(random_state=1)
-melbourne_model.fit(X, y)
+train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=0)
+melbourne_model = DecisionTreeRegressor()
+melbourne_model.fit(train_X, train_y)
 
-predicted_home_prices = melbourne_model.predict(X)
-print(mean_absolute_error(y, predicted_home_prices))
+val_predictions = melbourne_model.predict(val_X)
+
+print(mean_absolute_error(val_y, val_predictions))
